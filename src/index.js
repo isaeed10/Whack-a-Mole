@@ -2,14 +2,14 @@ const holes = document.querySelectorAll(".hole");
 const moles = document.querySelectorAll(".mole");
 const startButton = document.querySelector("#start");
 // TODO: Add the missing query selectors:
-const score = document.querySelector("#score"); // Use querySelector() to get the score element
+const score = document.getElementById("score"); // Use querySelector() to get the score element
 const timerDisplay = document.querySelector("#timer"); // use querySelector() to get the timer element.
 
 let time = 0;
 let timer;
 let lastHole = 0;
 let points = 0;
-let difficulty = "hard";
+let difficulty = "easy";
 
 /**
  * Generates a random integer within a range.
@@ -154,7 +154,7 @@ function showAndHide(hole, delay) {
  */
 function toggleVisibility(hole) {
   // TODO: add hole.classList.toggle so that it adds or removes the 'show' class.
-  hole.classList.toggle("show"); ///////////////////////////////////////////////////////////
+  hole.classList.toggle("show");
   return hole;
 }
 
@@ -170,7 +170,7 @@ function toggleVisibility(hole) {
  */
 function updateScore() {
   // TODO: Write your code here
-  points++;
+  points += 1;
   score.textContent = points;
   return points;
 }
@@ -201,7 +201,6 @@ function updateTimer() {
     time -= 1;
     timerDisplay.textContent = time;
   }
-  // timerDisplay.innerHTML = time;
 
   return time;
 }
@@ -213,7 +212,7 @@ function updateTimer() {
  *
  */
 function startTimer() {
-  // TODO: Write your code here              /////////////////////////////////////////////////////////
+  // TODO: Write your code here
   timer = setInterval(updateTimer, 1000);
   return timer;
 }
@@ -228,8 +227,6 @@ function startTimer() {
  */
 function whack(event) {
   // TODO: Write your code here.
-  // call updateScore()
-  //mole.addEventListener('click', whack)
   updateScore();
   return points;
 }
@@ -243,7 +240,11 @@ function setEventListeners() {
   // TODO: Write your code here
   // moles.forEach((mole) => mole.addEventListener("click", whack));
   // return moles;
-  moles.forEach((mole) => mole.addEventListener("click", whack()));
+  // moles.forEach((mole) => mole.addEventListener("click", whack));
+  // return moles;
+  for (const mole of moles) {
+    mole.addEventListener("click", whack);
+  }
   return moles;
 }
 
@@ -255,6 +256,8 @@ function setEventListeners() {
  */
 function setDuration(duration) {
   time = duration;
+  timerDisplay.textContent = time; //// new
+
   return time;
 }
 
@@ -265,7 +268,6 @@ function setDuration(duration) {
  *
  */
 function stopGame() {
-  // stopAudio(song); //optional
   clearInterval(timer);
   stopAudio(song);
   return "game stopped";
@@ -279,10 +281,10 @@ function stopGame() {
  */
 function startGame() {
   play();
+  setEventListeners();
   setDuration(10);
-  showUp();
   startTimer();
-  //setEventListeners();
+  showUp();
   return "game started";
 }
 
