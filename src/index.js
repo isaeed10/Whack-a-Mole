@@ -185,7 +185,7 @@ function updateScore() {
 function clearScore() {
   // TODO: Write your code here
   points = 0;
-  score.textContent = points;
+  //  score.textContent = points;
   return points;
 }
 
@@ -269,7 +269,7 @@ function setDuration(duration) {
  */
 function stopGame() {
   clearInterval(timer);
-    clearScore()
+  clearScore();
   stopAudio(song);
   return "game stopped";
 }
@@ -281,6 +281,10 @@ function stopGame() {
  *
  */
 function startGame() {
+  // reset score display
+  score.innerHTML = 0;
+  score.textContent = 0;
+
   play();
   setEventListeners();
   setDuration(10);
